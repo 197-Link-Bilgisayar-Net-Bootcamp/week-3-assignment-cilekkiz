@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Week3Web.Data.DTOs
+namespace Week3Web.Service.DTOs
 {
     public class ProductUpdateDTO
     {
