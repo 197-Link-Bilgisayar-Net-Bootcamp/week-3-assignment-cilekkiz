@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Week3Web.Data.Database;
 
 namespace Week3Web.Data.Repository
 {
     public class GenericRepository<T> where T : class
     {
+        private readonly DbContext _dbContext;
         private readonly DbSet<T> _dbSet;
 
-        public GenericRepository(DbSet<T> dbSet)
+        public GenericRepository(WebContext dbContext)
         {
-            _dbSet = dbSet;
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<T>();
         }
+
         public async Task<T> GetByIdAsync(Guid entityId)
         {
             var keyValues = new object[] { entityId };
@@ -30,7 +34,7 @@ namespace Week3Web.Data.Repository
         }
         public async Task UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
             await Task.CompletedTask;
         }
         public async Task DeleteAsync(T entity)
