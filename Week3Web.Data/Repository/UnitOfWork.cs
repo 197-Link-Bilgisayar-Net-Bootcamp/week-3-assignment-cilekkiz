@@ -22,9 +22,13 @@ namespace Week3Web.Data.Repository
             _transaction = _webContext.Database.BeginTransaction();
             return _transaction;
         }
-        public async Task Commit()
+        public async Task CommitAsync()
         {
             await _webContext.SaveChangesAsync();
+        }
+        public async Task RollBackAsync()
+        {
+            await _webContext.Database.RollbackTransactionAsync();
         }
     }
 }

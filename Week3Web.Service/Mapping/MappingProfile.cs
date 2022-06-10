@@ -1,21 +1,18 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Week3Web.Data.DTOs;
 using Week3Web.Data.Models;
+using Week3Web.Service.DTOs;
 
 namespace Week3Web.Service.Mapping
 {
-    internal class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<Product,ProductDTO>().ReverseMap();
             CreateMap<Product, ProductCreateDTO>().ReverseMap();
             CreateMap<Product, ProductUpdateDTO>().ReverseMap();
+            CreateMap<ProductByCategoryCreateDTO, Product>().ForMember(src => src.ProductFeature, opt => opt.Ignore());
+            CreateMap<Product, ProductByCategoryCreateDTO>();
             
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Category, CategoryCreateDTO>().ReverseMap();
